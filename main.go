@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/kristiannissen/ideal-octo-bassoon/handlers"
 	"log"
 	"net/http"
 	"os"
@@ -93,7 +94,7 @@ func main() {
 	}
 
 	route := NewRoute()
-	route.HandleFunc("/", HelloKitty)
+	route.HandleFunc("/", handlers.Hello)
 	route.HandleFunc("/hello/", HelloKitty)
 	route.HandleFunc("/hello/{key0}/", HelloKitty)
 	route.HandleFunc("/hello/{key1}/eatmy/{key2}/", HelloKitty)
