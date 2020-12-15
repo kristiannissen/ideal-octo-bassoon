@@ -18,3 +18,30 @@ router.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
 
 ListenAndServe(":", router)
 ```
+You can also access parameters from the URL like this
+```
+router.HandleFunc("/hello/{kitty}", func(...))
+```
+And then access the paramter key kitty using GetParam(keyname string) like this
+```
+router.HandleFunc("/hello/{name}", func(w http.ResponseWriter, r *http.Request) {
+  fmt.Fprintf(w, "Hello %s", GetParam("name")) 
+})
+```
+
+## Why not implement method specific handlers?
+Inspired by Google webrequest framework for Python I decided to go with handlers that are method agnostic so that both GET, PUT, DELETE and POST can be handled by the same HandleFunc.
+
+This approach gives you the option of implementing similar to the following when you handle a POST request
+````
+func HelloKitty(w http.ResponseWriter, r *http.Request) {
+  if r.Method == "POST" {
+    // Create something in a database
+    ...
+  }
+  // Fetch whatever you keep in your database and return it including what you just created
+  ...
+}
+````
+And if the same HandleFunc receives a GET request it returns a list of whatever you keep in your database.
+This way you have less HandleFuncs to write. and you can easily dispatch to other functions based on method using a switch.
