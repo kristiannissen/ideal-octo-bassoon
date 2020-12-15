@@ -16,7 +16,7 @@ func TestHello(t *testing.T) {
     body, _ := ioutil.ReadAll(resp.Body)
 
     got := string(body)
-    want := "hallo"
+    want := "Hello Kitty"
 
     if got != want {
         t.Errorf("got %s want %s", got, want)
