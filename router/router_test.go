@@ -13,11 +13,22 @@ func TestServeHTTP(t *testing.T) {
         path, want string
     }{
         {"/hello", "Hello"},
+        {"/hello/pussy", "Hello pussy"},
+        {"/hello/pussy/kitty", "Hello kitty you have a pussy"},
     }
 
     router := NewRoute()
+
     router.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
         fmt.Fprintf(w, "Hello")
+    })
+
+    router.HandleFunc("/hello/{name}", func(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintf(w, "Hello "+ GetParam("name"))
+    })
+
+    router.HandleFunc("/hello/{name}/{gen}", func(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintf(w, "Hello %s you have a %s", GetParam("gen"), GetParam("name")) 
     })
 
     for _, test := range tests {
