@@ -1,10 +1,10 @@
 package main
 
 import (
-	"os"
-    "fmt"
+	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"regexp"
 	str "strings"
 )
