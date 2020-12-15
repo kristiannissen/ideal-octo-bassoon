@@ -1,10 +1,7 @@
 package router
 
 import (
-	"fmt"
-	"log"
 	"net/http"
-	"os"
 	"regexp"
 	str "strings"
 )

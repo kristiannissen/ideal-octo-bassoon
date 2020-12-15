@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/kristiannissen/ideal-octo-bassoon/handlers"
-	"github.com/kristiannissen/ideal-octo-bassoon/router"
+	h "github.com/kristiannissen/ideal-octo-bassoon/handlers"
+	r "github.com/kristiannissen/ideal-octo-bassoon/router"
 	"log"
 	"net/http"
 	"os"
@@ -15,11 +15,8 @@ func main() {
 		port = "80"
 	}
 
-	route := NewRoute()
-	route.HandleFunc("/", handlers.Hello)
-	route.HandleFunc("/hello/", HelloKitty)
-	route.HandleFunc("/hello/{key0}/", HelloKitty)
-	route.HandleFunc("/hello/{key1}/eatmy/{key2}/", HelloKitty)
+	route := r.NewRoute()
+	route.HandleFunc("/", h.Hello)
 
 	log.Fatal(http.ListenAndServe(":"+port, route))
 }
