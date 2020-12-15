@@ -30,7 +30,7 @@ router.HandleFunc("/hello/{name}", func(w http.ResponseWriter, r *http.Request) 
 ```
 
 ## Why not implement method specific handlers?
-Inspired by Google webrequest framework for Python I decided to go with handlers that are method agnostic so that both GET, PUT, DELETE and POST can be handled by the same HandleFunc.
+Inspired by Googles webapp2 framework for Python I decided to go with handlers that are request method agnostic so that GET, PUT, DELETE and POST can be handled by the same HandleFunc.
 
 This approach gives you the option of implementing similar to the following when you handle a POST request
 ````
