@@ -4,10 +4,13 @@ import (
 	"fmt"
 	"net/http"
 	t "github.com/kristiannissen/ideal-octo-bassoon/template"
+    "log"
+    "io/ioutil"
 )
 
 func Hello(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset: utf-8")
+    log.Printf("Handler Hello")
 
     html := t.Parse("./static/templates/index.html", nil)
 
@@ -15,5 +18,13 @@ func Hello(w http.ResponseWriter, r *http.Request) {
 }
 
 func HandleStatic(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Hello")
+    w.Header().Set("Content-Type", "text/plain; charset: utf-8")
+    log.Printf("Handler HandleStatic")
+
+    content, err := ioutil.ReadFile("./static/"+ r.URL.Path)
+    if err != nil {
+        log.Printf("Error %e", err)
+    }
+
+    fmt.Fprintf(w, string(content))
 }

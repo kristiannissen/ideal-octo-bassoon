@@ -24,7 +24,7 @@ func main() {
 
 	route := r.NewRoute()
 	route.HandleFunc("/", h.Hello)
-    route.HandleFunc("/css/index.css", h.HandleStatic)
+    route.HandleFunc("/hello", h.Hello)
 
-	log.Fatal(http.ListenAndServe(":"+port, middle(route)))
+	log.Fatal(http.ListenAndServe(":"+port, route))
 }

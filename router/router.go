@@ -45,13 +45,12 @@ func (route *Route) HandleFunc(
 func (route *Route) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Iterate through routes
 	for pattern, handler := range route.routes {
-        // Does pattern contain *.*
-        if str.Index(pattern, "*.*") > 0 {
-            // The request contains a file
-            handler(w, r)
-            return
+        // log.Printf("URL incoming %s", r.URL.Path)
+		if str.Index(r.URL.Path, ".") > 0 {
+            fs := http.FileServer(http.Dir("./static"))
+            fs.ServeHTTP(w, r)
         }
-		// Does p contain regexp
+        // Does p contain regexp
 		reg := regexp.MustCompile(`\{([a-z0-9]+)\}`)
 		// Find groups matching
 		groups := reg.FindAllStringSubmatch(pattern, -1)
@@ -67,6 +66,7 @@ func (route *Route) ServeHTTP(w http.ResponseWriter, r *http.Request) {
         reg = regexp.MustCompile(pattern)
 		match := reg.FindStringSubmatch(r.URL.Path)
 		if len(match) > 0 {
+            // log.Printf("Match URL %s pattern %s", r.URL.Path, reg)
 			for i, name := range reg.SubexpNames() {
 				if i > 0 {
 					Params = AddParam(name, match[i])
