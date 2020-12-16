@@ -9,10 +9,10 @@ import (
 )
 
 func middle(n http.Handler) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        log.Println("URL.Path "+ r.URL.Path)
-        n.ServeHTTP(w, r)
-    })
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Println("URL.Path " + r.URL.Path)
+		n.ServeHTTP(w, r)
+	})
 }
 
 func main() {
@@ -24,7 +24,7 @@ func main() {
 
 	route := r.NewRoute()
 	route.HandleFunc("/", h.Hello)
-    route.HandleFunc("/hello", h.Hello)
+	route.HandleFunc("/hello", h.Hello)
 
 	log.Fatal(http.ListenAndServe(":"+port, route))
 }

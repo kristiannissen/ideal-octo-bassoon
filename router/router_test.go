@@ -15,8 +15,8 @@ func TestServeHTTP(t *testing.T) {
 		{"/hello", "Hello"},
 		{"/hello/pussy", "Hello pussy"},
 		{"/hello/pussy/kitty", "Hello kitty you have a pussy"},
-        {"/css/style.css", "Hello Kitty"},
-        {"/js/js.js", "Hello Kitty"},
+		{"/css/style.css", "Hello Kitty"},
+		{"/js/js.js", "Hello Kitty"},
 	}
 
 	router := NewRoute()
@@ -33,9 +33,9 @@ func TestServeHTTP(t *testing.T) {
 		fmt.Fprintf(w, "Hello %s you have a %s", GetParam("gen"), GetParam("name"))
 	})
 
-    router.HandleFunc("/*.*", func(w http.ResponseWriter, r *http.Request) {
-        fmt.Fprintf(w, "Hello Kitty")
-    })
+	router.HandleFunc("/*.*", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Hello Kitty")
+	})
 
 	for _, test := range tests {
 		r := httptest.NewRequest("GET", test.path, nil)
