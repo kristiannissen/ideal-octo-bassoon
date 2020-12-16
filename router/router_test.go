@@ -1,49 +1,55 @@
 package router
 
 import (
-    "testing"
-    "net/http/httptest"
-    "net/http"
-    "fmt"
-    "io/ioutil"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"net/http/httptest"
+	"testing"
 )
 
 func TestServeHTTP(t *testing.T) {
-    tests := []struct{
-        path, want string
-    }{
-        {"/hello", "Hello"},
-        {"/hello/pussy", "Hello pussy"},
-        {"/hello/pussy/kitty", "Hello kitty you have a pussy"},
-    }
+	tests := []struct {
+		path, want string
+	}{
+		{"/hello", "Hello"},
+		{"/hello/pussy", "Hello pussy"},
+		{"/hello/pussy/kitty", "Hello kitty you have a pussy"},
+        {"/css/style.css", "Hello Kitty"},
+        {"/js/js.js", "Hello Kitty"},
+	}
 
-    router := NewRoute()
+	router := NewRoute()
 
-    router.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
-        fmt.Fprintf(w, "Hello")
+	router.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Hello")
+	})
+
+	router.HandleFunc("/hello/{name}", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Hello "+GetParam("name"))
+	})
+
+	router.HandleFunc("/hello/{name}/{gen}", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Hello %s you have a %s", GetParam("gen"), GetParam("name"))
+	})
+
+    router.HandleFunc("/*.*", func(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintf(w, "Hello Kitty")
     })
 
-    router.HandleFunc("/hello/{name}", func(w http.ResponseWriter, r *http.Request) {
-        fmt.Fprintf(w, "Hello "+ GetParam("name"))
-    })
+	for _, test := range tests {
+		r := httptest.NewRequest("GET", test.path, nil)
+		w := httptest.NewRecorder()
 
-    router.HandleFunc("/hello/{name}/{gen}", func(w http.ResponseWriter, r *http.Request) {
-        fmt.Fprintf(w, "Hello %s you have a %s", GetParam("gen"), GetParam("name")) 
-    })
+		router.ServeHTTP(w, r)
 
-    for _, test := range tests {
-        r := httptest.NewRequest("GET", test.path, nil)
-        w := httptest.NewRecorder()
+		resp := w.Result()
+		body, _ := ioutil.ReadAll(resp.Body)
 
-        router.ServeHTTP(w, r)
+		got := string(body)
 
-        resp := w.Result()
-        body, _ := ioutil.ReadAll(resp.Body)
-
-        got := string(body)
-
-        if test.want != got {
-            t.Errorf("got %s, want %s", got, test.want)
-        }
-    }
+		if test.want != got {
+			t.Errorf("got %s, want %s", got, test.want)
+		}
+	}
 }

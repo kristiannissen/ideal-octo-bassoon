@@ -10,7 +10,7 @@ import (
 
 func middle(n http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        log.Println("Hello from the middle")
+        log.Println("URL.Path "+ r.URL.Path)
         n.ServeHTTP(w, r)
     })
 }
@@ -24,6 +24,7 @@ func main() {
 
 	route := r.NewRoute()
 	route.HandleFunc("/", h.Hello)
+    route.HandleFunc("/css/index.css", h.HandleStatic)
 
 	log.Fatal(http.ListenAndServe(":"+port, middle(route)))
 }

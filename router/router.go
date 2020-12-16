@@ -3,6 +3,7 @@ package router
 import (
 	"net/http"
 	"regexp"
+    "log"
 	str "strings"
 )
 
@@ -44,6 +45,12 @@ func (route *Route) HandleFunc(
 func (route *Route) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Iterate through routes
 	for pattern, handler := range route.routes {
+        // Does pattern contain *.*
+        if str.Index(pattern, "*.*") > 0 {
+            // The request contains a file
+            handler(w, r)
+            return
+        }
 		// Does p contain regexp
 		reg := regexp.MustCompile(`\{([a-z0-9]+)\}`)
 		// Find groups matching
@@ -56,7 +63,8 @@ func (route *Route) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 		// Escape / append ^ prepend $
 		pattern = "(?m)^" + str.ReplaceAll(pattern, "/", "\\/") + "$"
-		reg = regexp.MustCompile(pattern)
+		// log.Println(pattern)
+        reg = regexp.MustCompile(pattern)
 		match := reg.FindStringSubmatch(r.URL.Path)
 		if len(match) > 0 {
 			for i, name := range reg.SubexpNames() {
@@ -68,5 +76,7 @@ func (route *Route) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+    log.Printf("URL %s not found", r.URL.Path)
+
 	http.NotFound(w, r)
 }
