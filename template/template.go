@@ -7,14 +7,15 @@ import (
     "strings"
 )
 
-func Parse(templatename string) string {
+func Parse(templatename string, data interface{}) string {
     var buf bytes.Buffer
 
     tpl := template.Must(template.ParseFiles(templatename))
-    err := tpl.Execute(&buf, nil)
+    err := tpl.Execute(&buf, data)
 
     if err != nil {
-        log.Println(err)
+        log.Printf("Parse error %s", err)
+
         return ""
     }
 
