@@ -1,10 +1,12 @@
 package template
 
-import "testing"
+import (
+    "testing"
+)
 
 func TestParse(t *testing.T) {
     var got, want string
-    got = Parse("./static/templates/index.html")
+    got = Parse("../static/templates/hello.gohtml")
     want = "Hello Kitty"
 
     if got != want {
