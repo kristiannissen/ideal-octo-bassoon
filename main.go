@@ -23,8 +23,8 @@ func main() {
 	}
 
 	route := r.NewRoute()
-	route.HandleFunc("/", h.Hello)
-	route.HandleFunc("/hello", h.Hello)
+	route.HandleFunc("/", h.SplashHandler)
+	route.HandleFunc("/pwa", h.PWAHandler)
 
 	log.Fatal(http.ListenAndServe(":"+port, route))
 }

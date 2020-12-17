@@ -3,7 +3,6 @@ package handlers
 import (
 	"fmt"
 	t "github.com/kristiannissen/ideal-octo-bassoon/template"
-	"io/ioutil"
 	"log"
 	"net/http"
 )
@@ -17,14 +16,16 @@ func Hello(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, html)
 }
 
-func HandleStatic(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/plain; charset: utf-8")
-	log.Printf("Handler HandleStatic")
+func SplashHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset: utf-8")
 
-	content, err := ioutil.ReadFile("./static/" + r.URL.Path)
-	if err != nil {
-		log.Printf("Error %e", err)
-	}
+    html := t.Parse("./static/templates/index.html", nil)
+    fmt.Fprint(w, html)
+}
 
-	fmt.Fprintf(w, string(content))
+func PWAHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset: utf-8")
+
+    html := t.Parse("./static/templates/pwa.html", nil)
+    fmt.Fprint(w, html)
 }
