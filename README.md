@@ -54,3 +54,14 @@ served to the browser for you.
 My favourite: **gofmt -w -s** does the code formatting for me.
 Run package test: **go test -v ./package/** runs all tests in the package you
 specify.
+
+### App Structure
+Routes used
+
+* /api/hops - returns top N hops, with pagination
+* /api/hop/{name} - returns specific hop
+* / - index/splash page
+* /app - PWA app to install
+
+Since the app is just using a JSON file as it's datasource in this first
+version, there is no need for authentication or admin routes.
