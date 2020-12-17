@@ -45,3 +45,12 @@ func HelloKitty(w http.ResponseWriter, r *http.Request) {
 ````
 And if the same HandleFunc receives a GET request it returns a list of whatever you keep in your database.
 This way you have less HandleFuncs to write. and you can easily dispatch to other functions based on method using a switch.
+
+### What about static files?
+Static files are automagically handled, any request that has a file extension is
+served to the browser for you.
+
+### Useful Commands
+My favourite: **gofmt -w -s** does the code formatting for me.
+Run package test: **go test -v ./package/** runs all tests in the package you
+specify.
