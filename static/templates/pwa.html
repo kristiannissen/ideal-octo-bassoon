@@ -7,7 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="/css/pwa_shell.css">
-  <link rel="preload" as="style" type="text/css" href="/css/pwa_app.css">
+  <link rel="preload" as="style" type="text/css" href="/css/pwa_app.css"
+  onload="this.onload=null;this.rel='stylesheet'">
 </head>
 
 <body>
@@ -34,15 +35,15 @@
     </form>
   </main>
 
-  <div class="dialog-container">
+  <div class="dialog-container" id="snackbar">
     Some toast
   </div>
 
   <div class="loader">
     I am the loader, I will be shown as default until something happens
   </div>
-	<!--
-  <script src="app.js" async></script>
+  <script src="/js/app.js" async></script>
+  <!--
   <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').then(function(registration) {
