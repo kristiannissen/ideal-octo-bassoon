@@ -30,16 +30,19 @@
 
   <main class="main">
     <form id="search" autocomplete="off">
-        <input type="search" name="q" value="" placeholder="">
+        <input type="search" name="q" value="" placeholder="Search for Hops">
         <input type="submit" value="Go!">
     </form>
+    <div class="card card__list">
+        <div class="card__list-content" id="card_list"></div>
+    </div>
   </main>
 
   <div class="dialog-container" id="snackbar">
     Some toast
   </div>
 
-  <div class="loader">
+  <div id="loader" class="loader__toggle">
     I am the loader, I will be shown as default until something happens
   </div>
   <script src="/js/app.js" async></script>
