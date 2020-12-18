@@ -7,6 +7,8 @@ import (
 	"net/http"
     "io/ioutil"
     "encoding/json"
+    str "strings"
+    "net/url"
 )
 
 type Hop struct {
@@ -57,9 +59,25 @@ func PWAHandler(w http.ResponseWriter, r *http.Request) {
 
 func HopHandler(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json; charset: utf-8")
-
+    // Find hop name
+    // TODO: Should be done using context
+    hopName, err := url.QueryUnescape(r.URL.Path[str.LastIndex(r.URL.Path, "/") + 1:])
+    if err != nil {
+        log.Println("Error decoding", err)
+    }
+    // Find hopname in slice
+    var pos int = 0
+    // Iterate over all hops
+    for i, v := range Hops {
+        // Compare lowercase to lowercase
+        if str.ToLower(v.Name) == str.ToLower(hopName) {
+            // Pos is now the index of the matching strings
+            pos = i
+        }
+    }
     // Encode single hop
-    jsonOut, _ := json.Marshal(Hops[0:1])
+    jsonOut, _ := json.Marshal(Hops[pos])
+    // Print out the string
     fmt.Fprint(w, string(jsonOut))
 }
 
