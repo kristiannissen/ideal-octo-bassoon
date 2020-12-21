@@ -21,3 +21,9 @@ let card = document.querySelector("x-card")
         event: "__results__",
         action: (payload) => card.update(payload)
     })
+
+context.subscribe({
+    event: "__results__",
+    action: (payload) =>
+        localStorage.setItem("__results__", JSON.stringify(payload))
+})

@@ -6,7 +6,9 @@
 const template = document.createElement("template");
 template.innerHTML = `
     <style>
-        :host {display: block;}
+        :host {
+            display: block;
+        }
     </style>
     <slot></slot>
 `;
@@ -42,11 +44,13 @@ class Card extends HTMLElement {
     }
 
     render() {
+        let substitutes = this.state.Substitutes.split(",").map(str => str.trim())
+
         const html = `
-                <div>
+                <div class="card">
                     <div>Name: ${this.state.Name}</div>
                     <div>Style Guide: ${this.state.Styleguide}</div>
-                    <div>Substitutes: ${this.state.Substitutes}</div>
+                    <div>Substitutes: ${substitutes.join(", ")}</div>
                     <div>Purpose: ${this.state.Purpose}</div>
                 </div>
             `
