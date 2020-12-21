@@ -17,13 +17,21 @@ class Card extends HTMLElement {
         this._shadowRoot = this.attachShadow({mode: "open"});
         this._shadowRoot.appendChild(template.content.cloneNode(true));
         this.state = {
-            query: null
+            Name: "",
+            Styleguide: "",
+            Substitutes: "",
+            Purpose: ""
         };
     }
 
     connectedCallback() {
         this.render();
         this.attachEventListener();
+    }
+
+    update(data) {
+        Object.assign(this.state, data)
+        this.render()
     }
 
     attachEventListener() {
@@ -33,31 +41,15 @@ class Card extends HTMLElement {
         });
     }
 
-    dispatchEvent(event) {
-        super.dispatchEvent(event)
-        console.log("hello")
-    }
-
-    static get observedAttributes() {
-        return ["query"]
-    }
-
-    attributeChangedCallback(attrName, oldValue, newValue) {
-        console.log(attrName)
-        this.render();
-    }
-
-    get query() {
-        return this.state.query
-    }
-
-    set query(newValue) {
-        this.state.query = newValue;
-        this.render();
-    }
-
     render() {
-        const html = `<div>hello</div>`
+        const html = `
+                <div>
+                    <div>Name: ${this.state.Name}</div>
+                    <div>Style Guide: ${this.state.Styleguide}</div>
+                    <div>Substitutes: ${this.state.Substitutes}</div>
+                    <div>Purpose: ${this.state.Purpose}</div>
+                </div>
+            `
         this.innerHTML = html
     }
 }
