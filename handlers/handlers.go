@@ -65,8 +65,8 @@ func HopHandler(w http.ResponseWriter, r *http.Request) {
     if err != nil {
         log.Println("Error decoding", err)
     }
-    // Find hopname in slice
-    var pos int = 0
+    // Pos is -1 to indicate we didn't find any matching hops
+    var pos int = -1
     // Iterate over all hops
     for i, v := range Hops {
         // Compare lowercase to lowercase
@@ -75,8 +75,15 @@ func HopHandler(w http.ResponseWriter, r *http.Request) {
             pos = i
         }
     }
+    hop := Hop{}
+
+    if pos == -1 {
+        hop.Name = "Uups"
+    } else {
+        hop = Hops[pos]
+    }
     // Encode single hop
-    jsonOut, _ := json.Marshal(Hops[pos])
+    jsonOut, _ := json.Marshal(hop)
     // Print out the string
     fmt.Fprint(w, string(jsonOut))
 }

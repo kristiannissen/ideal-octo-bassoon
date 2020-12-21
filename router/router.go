@@ -47,7 +47,8 @@ func (route *Route) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	for pattern, handler := range route.routes {
 		// log.Printf("URL incoming %s", r.URL.Path)
 		if str.Index(r.URL.Path, ".") > 0 {
-			fs := http.FileServer(http.Dir("./static"))
+            // FIXME: non-JavaScript MIME type
+            fs := http.FileServer(http.Dir("./static"))
 			fs.ServeHTTP(w, r)
 		}
 		// Does p contain regexp

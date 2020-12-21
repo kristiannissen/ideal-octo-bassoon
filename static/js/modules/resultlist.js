@@ -2,9 +2,9 @@
  * @file resultlist.js
  */
 const resultList = (data) => {
-    let html = ""
+    let html = []
     console.log(data)
-    return html
+    return html.join('')
 }
 
 export function results(data) {
