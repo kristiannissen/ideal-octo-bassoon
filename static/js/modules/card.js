@@ -9,6 +9,9 @@ template.innerHTML = `
         :host {
             display: block;
         }
+        .toggle-visible {
+            visibility: hidden;
+        }
         .card {
             border-radius: 4px;
             box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
@@ -86,7 +89,7 @@ template.innerHTML = `
             padding: 16px;
         }
     </style>
-    <div id="card" visible="false"></div>
+    <div id="card" class="toggle-visible"></div>
 `;
 
 class Card extends HTMLElement {
@@ -104,8 +107,33 @@ class Card extends HTMLElement {
     }
 
     connectedCallback() {
+        this.toggleVisibility()
         this.render();
         this.attachEventListener();
+    }
+
+    static get observedAttributes() {
+        return ["visible"];
+    }
+
+    toggleVisibility() {
+        if (this.getAttribute("visible") === "false")
+            this.card.classList.add("toggle-visible")
+        else
+            this.card.classList.remove("toggle-visible")
+    }
+
+    attributeChangedCallback(name, oldVal, newVal) {
+       this.toggleVisibility() 
+    }
+
+    get visible() {
+        return this.getAttribute("visible")
+    }
+
+    set visible(val) {
+        if (val) this.setAttribute("visible", val)
+        else this.removeAttribute("visible")
     }
 
     update(data) {
