@@ -9,8 +9,84 @@ template.innerHTML = `
         :host {
             display: block;
         }
+        .card {
+            border-radius: 4px;
+            box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+            color: rgba(0,0,0,.87);
+            margin: 8px;
+            min-width: 290px;
+            overflow: hidden;
+            position: relative;
+        }
+        .card::after {
+            clear: both;
+        }
+        .card::after, .card::before {
+            content: "";
+            display: block;
+        }
+        .optional-header {
+            min-height: 40px;
+            padding: 16px;
+            position: relative;
+        }
+        .optional-header {
+            min-height: 40px;
+            padding: 16px;
+            position: relative;
+        }
+        .optional-header .action-icons {
+            float: right;
+            position: relative;
+            right: -8px;
+            top: 2px;
+        }
+        .optional-header .primary-title {
+            bottom: auto;
+            display: inline-block;
+            padding: 0;
+            position: absolute;
+            top: 50%;
+            -moz-transform: translate(0, -50%);
+            -ms-transform: translate(0, -50%);
+            -o-transform: translate(0, -50%);
+            -webkit-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+        }
+        .optional-header + .primary-text {
+            margin-top: calc(24px/2/2);
+        }
+        .optional-header + .supporting-text {
+            padding-top: 0;
+        }
+        .primary-title .optional-header {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .subhead, .secondary-text {
+            color: rgba(0,0,0,.54);
+            font-size: 14px;
+        }
+        .title {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .title + .subhead {
+            margin-top: 7px;
+        }
+        .title {
+            line-height: 1.2;
+        }
+        .primary-title + .supporting-text, .optional-header + .supporting-text {
+            padding-top: 0;
+        }
+        .supporting-text {
+            font-size: 14px;
+            line-height: 1.5;
+            padding: 16px;
+        }
     </style>
-    <slot></slot>
+    <div id="card" visible="false"></div>
 `;
 
 class Card extends HTMLElement {
@@ -24,6 +100,7 @@ class Card extends HTMLElement {
             Substitutes: "",
             Purpose: ""
         };
+        this.card = this._shadowRoot.querySelector("#card")
     }
 
     connectedCallback() {
@@ -48,13 +125,19 @@ class Card extends HTMLElement {
 
         const html = `
                 <div class="card">
-                    <div>Name: ${this.state.Name}</div>
-                    <div>Style Guide: ${this.state.Styleguide}</div>
-                    <div>Substitutes: ${substitutes.join(", ")}</div>
-                    <div>Purpose: ${this.state.Purpose}</div>
+                    <div class="optional-header">
+                        <div class="primary-title">
+                            <div class="title">Name: ${this.state.Name}</div>
+                            <div class="subhead">Purpose: ${this.state.Purpose}</div>
+                        </div>                        
+                    </div>
+                    <div class="supporting-text">
+                        Style Guide: ${this.state.Styleguide}<br>
+                        Substitutes: ${substitutes.join(", ")}
+                    </div>
                 </div>
             `
-        this.innerHTML = html
+        this.card.innerHTML = html
     }
 }
 
