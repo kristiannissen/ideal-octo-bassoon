@@ -12,39 +12,23 @@
 </head>
 
 <body>
-  <header class="header">
-    <h1 class="header__title">Hopstr</h1>
-    <!--
-    <svg viewBox="0 0 100 80" width="30" height="30" class="header__icon">
-      <rect width="100" height="20"></rect>
-      <rect y="30" width="100" height="20"></rect>
-      <rect y="60" width="100" height="20"></rect>
-    </svg>
-    //-->
-  </header>
 
-  <!--
-  <nav class="nav">
-      <ul>
-        <li><a href="">Home</a></li>
-        <li><a href="">About</a></li>
-      </ul>
-  </nav>
-  //-->
+    <div class="container">
+        <nav class="nav">
+            <div class="nav-center">
+                <a class="brand" href="#">hopstr</a>
+            </div>
+        </nav>
 
-  <main class="main">
-    <x-search keyword=""></x-search>
-    <x-card visible="false"></x-card>
-    <x-list></x-card>
-  </main>
-
-  <div class="dialog-container" id="snackbar">
-    Some toast
-  </div>
-
-  <div id="loader" class="loader__toggle">
-    I am the loader, I will be shown as default until something happens
-  </div>
+        <main class="row">
+            <div class="col-12">
+                <x-search keyword=""></x-search>
+            </div>
+            <div class="col-12">
+                <x-card visible="false"></x-card>
+            </div>
+        </main>
+    </div>
 
   <script src="/js/app.js" type="module" async></script>
   <!--
