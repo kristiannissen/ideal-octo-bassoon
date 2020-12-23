@@ -1,48 +1,6 @@
-/* PQA SHELL */
-html {
-    box-sizing: border-box;
-    font-size: 18px;
+* {
+    font-size: 1rem;
 }
-*, *:before, *:after {
-    box-sizing: inherit;
-}
-body, h1, h2, h3, h4, h5, h6, ul, ol, p {
-    margin: 0;
-    padding: 0;
-    line-height: 1.778rem;
-}
-ol, ul {
-    list-style: none;
-}
-/* App */
-header {}
-.header {
-    background-color: #BFBFBF;
-    display: flex;
-    flex-direction: row:
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-    height: 35px;
-}
-.header__title {
-    font-size: 20px;
-}
-.header__title, .header__icon {
-    padding: 0 5px;
-}
-nav {}
-main {}
-#loader {
-    position: fixed;
-    top: 35px;
-    width: 100vw;
-    height: 100vw;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.loader__toggle {
-    visibility: visible;
+html, * {
+    line-height: 1.5;
 }

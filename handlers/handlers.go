@@ -70,7 +70,7 @@ func HopHandler(w http.ResponseWriter, r *http.Request) {
     // Iterate over all hops
     for i, v := range Hops {
         // Compare lowercase to lowercase
-        if str.ToLower(v.Name) == str.ToLower(hopName) {
+        if str.ToLower(str.Trim(v.Name, " ")) == str.ToLower(hopName) {
             // Pos is now the index of the matching strings
             pos = i
         }
