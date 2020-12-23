@@ -6,12 +6,21 @@
 const template = document.createElement("template");
 template.innerHTML = `
     <style>
-        :host {display: block;}
+        :host {
+            display: block;
+        }
         form {
-            min-width: 290px;
-            color: rgba(0,0,0,.87);
-            margin: 8px;
-            height: calc(1.5em + 0.75rem + 2px);
+            background-color: var(--color-lightGrey)!important;
+            display: flex;
+            border-radius: 4px;
+            padding: 1rem 2rem;
+            justify-content: center;
+            align-items: center;
+        }
+        input[type="search"] {
+            width: 90%;
+            border: none;
+            font-size: 1.75em;
         }
     </style>
     <div id="search"></div>
@@ -57,7 +66,6 @@ class Search extends HTMLElement {
     render() {
         const html = `<form autocomplete="off" id="search-form">
                 <input type="search" name="query" value="" placeholder="">
-                <input type="submit" value="Go!" id="search-button">
             </form>`
         this.root.innerHTML = html
     }
