@@ -38,7 +38,6 @@ class Search extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldVal, newVal) {
-        console.log("callback ", name, oldVal, newVal)
         this.dispatchEvent(new CustomEvent("search", {
             detail: this.getAttribute("keyword")
         }));

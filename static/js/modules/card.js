@@ -40,7 +40,11 @@ class Card extends HTMLElement {
             Name: "",
             Styleguide: "",
             Substitutes: "",
-            Purpose: ""
+            Purpose: "",
+            Country: "",
+            Characteristics: "",
+            Alphaacidcomposition: "",
+            Betaacidcomposition: "",
         };
         this.card = this._shadowRoot.querySelector("#card")
     }
@@ -75,7 +79,7 @@ class Card extends HTMLElement {
         else this.removeAttribute("visible")
     }
 
-    update(data) {
+    updateState(data) {
         Object.assign(this.state, data)
         this.render()
     }
@@ -92,9 +96,15 @@ class Card extends HTMLElement {
 
         const html = `<div class="card">
                 <header>
-                    <h4>${this.state.Name}</h4>
+                    <h3>${this.state.Name}</h3>
                 </header>
-                <p>here</p>
+                <p>
+                    Purpose: ${this.state.Purpose}<br>
+                    Alternatives: ${this.state.Substitutes}<br>
+                    Beer Styles: ${this.state.Styleguide}<br>
+                    Characteristics: ${this.state.Characteristics}<br>
+                    Country: ${this.state.Country}<br>
+                </p>
                 <footer class="is-center">
                     <a class="button primary">Save</a>
                     <a class="button">Cancel</a>
