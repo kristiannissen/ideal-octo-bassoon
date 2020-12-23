@@ -24,8 +24,11 @@ template.innerHTML = `
   margin-top: 0;
   margin-bottom: 1rem;
 }
+.is-hidden {
+    display: none !important;
+}
     </style>
-    <div id="card" class="toggle-visible"></div>
+    <div id="card" class="is-hidden"></div>
 `;
 
 class Card extends HTMLElement {
@@ -54,9 +57,9 @@ class Card extends HTMLElement {
 
     toggleVisibility() {
         if (this.getAttribute("visible") === "false")
-            this.card.classList.add("toggle-visible")
+            this.card.classList.add("is-hidden")
         else
-            this.card.classList.remove("toggle-visible")
+            this.card.classList.remove("is-hidden")
     }
 
     attributeChangedCallback(name, oldVal, newVal) {
