@@ -20,7 +20,15 @@ ctx.subscribe({
 let foo = document.querySelector("x-search")
 foo.addEventListener("search", (e) => {
     // Pass keyword to API
-    fetch(`/api/search/${e.detail}`)
+    fetch(`/api/hop/${e.detail}`)
         .then(response => response.json())
         .then(obj => ctx.publish("__search__", obj))
+})
+
+foo.addEventListener("typeahead", (e) => {
+    if (e.detail.length >= 3) {
+        fetch(`/api/search/${e.detail}`)
+            .then(response => response.json())
+            .then(result => console.log(result))
+    }
 })

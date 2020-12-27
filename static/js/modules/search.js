@@ -28,7 +28,19 @@ class Search extends HTMLElement {
         this.render();
         this.root.querySelector("#search-form").addEventListener("submit", (e) => {
             e.preventDefault();
+
             this.setAttribute("keyword", e.target["query"].value.trim())
+            this.dispatchEvent(new CustomEvent("search", {
+                detail: e.target["query"].value.trim()
+            }));
+        })
+        // Typeahead
+        this.root.querySelector("#query").addEventListener("keyup", (e) => {
+            e.preventDefault();
+
+            this.dispatchEvent(new CustomEvent("typeahead", {
+                detail: e.target.value.trim()
+            }));
         })
     }
 
@@ -37,9 +49,11 @@ class Search extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldVal, newVal) {
+        /*
         this.dispatchEvent(new CustomEvent("search", {
             detail: this.getAttribute("keyword")
         }));
+        */
     }
 
     get keyword() {
@@ -55,7 +69,7 @@ class Search extends HTMLElement {
 
     render() {
         const html = `<form autocomplete="off" id="search-form">
-                <input type="search" name="query" value="" placeholder="">
+                <input type="search" id="query" name="query" value="" placeholder="">
             </form>`
         this.root.innerHTML = html
     }
