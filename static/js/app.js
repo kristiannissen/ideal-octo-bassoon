@@ -29,6 +29,6 @@ foo.addEventListener("typeahead", (e) => {
     if (e.detail.length >= 3) {
         fetch(`/api/search/${e.detail}`)
             .then(response => response.json())
-            .then(result => console.log(result))
+            .then(result => foo.showTypeAhead(result))
     }
 })

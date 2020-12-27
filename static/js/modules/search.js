@@ -9,6 +9,13 @@ template.innerHTML = `
         :host {
             display: block;
         }
+        .typeahead-item {
+            padding: 10px 5px;
+            border-bottom: 1px solid #d2d6dd;
+        }
+        .typeahead-item:last-child {
+            border-bottom: 0;
+        }
     </style>
     <style>
         @import "/css/forms.css";
@@ -21,7 +28,8 @@ class Search extends HTMLElement {
         super();
         this._shadowRoot = this.attachShadow({mode: "open"});
         this._shadowRoot.appendChild(template.content.cloneNode(true));
-        this.root = this._shadowRoot.querySelector("#search")
+        this.root = this._shadowRoot.querySelector("#search");
+        this.root.addEventListener("click", this.updateAttribute.bind(this));
     }
 
     connectedCallback() {
@@ -48,12 +56,19 @@ class Search extends HTMLElement {
         return ["keyword"]
     }
 
+    updateAttribute(e) {
+        e.preventDefault();
+
+        if (e.target.classList.contains("typeahead-item")) {
+            this.root.querySelector("#query").value = e.target.innerHTML.trim()
+            this.showTypeAhead([])
+        }
+    }
+
     attributeChangedCallback(name, oldVal, newVal) {
-        /*
         this.dispatchEvent(new CustomEvent("search", {
             detail: this.getAttribute("keyword")
         }));
-        */
     }
 
     get keyword() {
@@ -65,6 +80,17 @@ class Search extends HTMLElement {
             this.setAttribute("keyword", val)
         else
             this.removeAttribute("keyword")
+    }
+
+    showTypeAhead(list) {
+        let elm = this.root.querySelector(".typeahead")
+        if (elm) this.root.removeChild(elm)
+
+        let _list = list.map((item) => `<div class="typeahead-item">${item.Name}</div>`)
+        let cont = document.createElement("div")
+        cont.classList.add("typeahead")
+        cont.innerHTML = _list.join("");
+        this.root.appendChild(cont)
     }
 
     render() {
