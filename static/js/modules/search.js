@@ -9,19 +9,9 @@ template.innerHTML = `
         :host {
             display: block;
         }
-        form {
-            background-color: var(--color-lightGrey)!important;
-            display: flex;
-            border-radius: 4px;
-            padding: 1rem 2rem;
-            justify-content: center;
-            align-items: center;
-        }
-        input[type="search"] {
-            width: 90%;
-            border: none;
-            font-size: 1.75em;
-        }
+    </style>
+    <style>
+        @import "/css/forms.css";
     </style>
     <div id="search"></div>
 `;
