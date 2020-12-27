@@ -9,6 +9,9 @@ template.innerHTML = `
         :host {
             display: block;
         }
+        .is-hidden {
+            display: none !important;
+        }
     </style>
     <style>
         @import "/css/buttons.css";
