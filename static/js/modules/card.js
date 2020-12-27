@@ -9,24 +9,10 @@ template.innerHTML = `
         :host {
             display: block;
         }
-        .card {
-  padding: 1rem 2rem;
-  border-radius: 4px;
-  background: var(--bg-color);
-  box-shadow: 0 1px 3px var(--color-grey);
-}
-
-.card p:last-child {
-  margin: 0;
-}
-
-.card header > * {
-  margin-top: 0;
-  margin-bottom: 1rem;
-}
-.is-hidden {
-    display: none !important;
-}
+    </style>
+    <style>
+        @import "/css/buttons.css";
+        @import "/css/cards.css";
     </style>
     <div id="card" class="is-hidden"></div>
 `;
