@@ -20,7 +20,7 @@ ctx.subscribe({
 let foo = document.querySelector("x-search")
 foo.addEventListener("search", (e) => {
     // Pass keyword to API
-    fetch(`/api/hop/${e.detail}`)
+    fetch(`/api/search/${e.detail}`)
         .then(response => response.json())
         .then(obj => ctx.publish("__search__", obj))
 })

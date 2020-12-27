@@ -29,6 +29,7 @@ func main() {
     // API handlers
     route.HandleFunc("/api/hop/{hopname}", h.HopHandler)
     route.HandleFunc("/api/hops", h.HopListHandler)
+    route.HandleFunc("/api/search/{name}", h.SearchHandler)
 
 	log.Fatal(http.ListenAndServe(":"+port, route))
 }

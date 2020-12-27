@@ -95,3 +95,25 @@ func HopListHandler(w http.ResponseWriter, r *http.Request) {
     jsonOut, _ := json.Marshal(Hops)
     fmt.Fprint(w, string(jsonOut))
 }
+
+func SearchHandler(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Content-Type", "application/json; charset: utf-8")
+    hoplist := make([]Hop, 0)
+    // Take hop name from URL
+    hopName, err := url.QueryUnescape(r.URL.Path[str.LastIndex(r.URL.Path, "/") + 1:])
+
+    if err != nil {
+        log.Println("Error decoding", err)
+    }
+
+    for _, v := range Hops {
+        // Compare lowercase to lowercase
+        if str.Contains(str.ToLower(str.Trim(v.Name, " ")), str.ToLower(hopName)) {
+            // Name contains hopName
+            hoplist = append(hoplist, v)
+        }
+    }
+    // Encode data
+    jsonOut, _ := json.Marshal(hoplist)
+    fmt.Fprint(w, string(jsonOut))
+}
