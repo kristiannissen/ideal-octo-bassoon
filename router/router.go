@@ -3,6 +3,7 @@ package router
 import (
 	"log"
 	"net/http"
+	"net/url"
 	"regexp"
 	str "strings"
 )
@@ -47,8 +48,8 @@ func (route *Route) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	for pattern, handler := range route.routes {
 		// log.Printf("URL incoming %s", r.URL.Path)
 		if str.Index(r.URL.Path, ".") > 0 {
-            // FIXME: non-JavaScript MIME type
-            fs := http.FileServer(http.Dir("./static"))
+			// FIXME: non-JavaScript MIME type
+			fs := http.FileServer(http.Dir("./static"))
 			fs.ServeHTTP(w, r)
 		}
 		// Does p contain regexp
@@ -58,14 +59,18 @@ func (route *Route) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		// If groups has len > 0
 		if len(groups) > 0 {
 			for _, v := range groups {
-				pattern = str.ReplaceAll(pattern, v[0], "(?P<"+v[1]+">[a-zA-Z0-9]+)")
+				pattern = str.ReplaceAll(pattern, v[0], "(?P<"+v[1]+">[a-zA-Z0-9\\(\\)i\\s]+)")
 			}
 		}
 		// Escape / append ^ prepend $
 		pattern = "(?m)^" + str.ReplaceAll(pattern, "/", "\\/") + "$"
-		// log.Println(pattern)
+		log.Println(pattern)
 		reg = regexp.MustCompile(pattern)
-		match := reg.FindStringSubmatch(r.URL.Path)
+		url, err := url.QueryUnescape(r.URL.Path)
+		if err != nil {
+			log.Println("QueryUnscape error ", err)
+		}
+		match := reg.FindStringSubmatch(url)
 		if len(match) > 0 {
 			// log.Printf("Match URL %s pattern %s", r.URL.Path, reg)
 			for i, name := range reg.SubexpNames() {
