@@ -26,8 +26,10 @@ foo.addEventListener("search", (e) => {
 })
 
 foo.addEventListener("typeahead", (e) => {
-    if (e.detail.length >= 3) {
-        fetch(`/api/search/${e.detail}`)
+    let eventDetails = e.detail;
+
+    if (eventDetails.string.length >= 3 && eventDetails.which != 13) {
+        fetch(`/api/search/${eventDetails.string}`)
             .then(response => response.json())
             .then(result => foo.showTypeAhead(result))
     }

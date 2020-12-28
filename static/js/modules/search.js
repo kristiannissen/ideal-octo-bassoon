@@ -47,7 +47,11 @@ class Search extends HTMLElement {
             e.preventDefault();
 
             this.dispatchEvent(new CustomEvent("typeahead", {
-                detail: e.target.value.trim()
+                detail: {
+                    string: e.target.value.trim(),
+                    key: e.key,
+                    which: e.which
+                }
             }));
         })
     }
