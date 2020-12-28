@@ -14,8 +14,8 @@ template.innerHTML = `
         }
     </style>
     <style>
-        @import "/css/buttons.css";
-        @import "/css/cards.css";
+        @import url("/css/cards.css");
+        @import url("/css/buttons.css");
     </style>
     <div id="card" class="is-hidden"></div>
 `;

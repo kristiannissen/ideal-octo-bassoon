@@ -48,9 +48,9 @@ func (route *Route) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	for pattern, handler := range route.routes {
 		// log.Printf("URL incoming %s", r.URL.Path)
 		if str.Index(r.URL.Path, ".") > 0 {
-			// FIXME: non-JavaScript MIME type
 			fs := http.FileServer(http.Dir("./static"))
 			fs.ServeHTTP(w, r)
+            return
 		}
 		// Does p contain regexp
 		reg := regexp.MustCompile(`\{([a-z0-9]+)\}`)
@@ -64,7 +64,7 @@ func (route *Route) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 		// Escape / append ^ prepend $
 		pattern = "(?m)^" + str.ReplaceAll(pattern, "/", "\\/") + "$"
-		log.Println(pattern)
+		// log.Println(pattern)
 		reg = regexp.MustCompile(pattern)
 		url, err := url.QueryUnescape(r.URL.Path)
 		if err != nil {

@@ -18,7 +18,7 @@ template.innerHTML = `
         }
     </style>
     <style>
-        @import "/css/forms.css";
+        @import url("/css/forms.css");
     </style>
     <div id="search"></div>
 `;
