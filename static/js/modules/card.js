@@ -96,8 +96,6 @@ class Card extends HTMLElement {
                     Country: ${this.state.Country}<br>
                 </p>
                 <footer class="is-center">
-                    <a class="button primary">Save</a>
-                    <a class="button">Cancel</a>
                 </footer>
             </div>`
         this.card.innerHTML = html

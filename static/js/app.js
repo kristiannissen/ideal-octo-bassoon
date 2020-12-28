@@ -4,9 +4,12 @@
 
 import Search from "./modules/search.js";
 import Card from "./modules/card.js";
+import Snackbar from "./modules/snackbar.js";
 import Context from "./modules/context.js";
 
 let ctx = new Context();
+
+let snackbar = document.querySelector("x-snackbar")
 
 let card = document.querySelector("x-card")
 ctx.subscribe({
@@ -22,7 +25,7 @@ foo.addEventListener("search", (e) => {
     // Pass keyword to API
     fetch(`/api/hop/${e.detail}`)
         .then(response => response.json())
-        .then(obj => ctx.publish("__search__", obj))
+        .then(data => ctx.publish("__search__", data))
 })
 
 foo.addEventListener("typeahead", (e) => {

@@ -78,14 +78,15 @@ func HopHandler(w http.ResponseWriter, r *http.Request) {
 	hop := Hop{}
 
 	if pos == -1 {
-		hop.Name = "Uups"
+        // Hop was not found
+        http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
 	} else {
 		hop = Hops[pos]
+        // Encode single hop
+        jsonOut, _ := json.Marshal(hop)
+        // Print out the string
+        fmt.Fprint(w, string(jsonOut))
 	}
-	// Encode single hop
-	jsonOut, _ := json.Marshal(hop)
-	// Print out the string
-	fmt.Fprint(w, string(jsonOut))
 }
 
 func HopListHandler(w http.ResponseWriter, r *http.Request) {
