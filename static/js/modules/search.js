@@ -18,6 +18,7 @@ template.innerHTML = `
         }
     </style>
     <style>
+        @import url("/css/base.css");
         @import url("/css/forms.css");
     </style>
     <div id="search"></div>
