@@ -29,6 +29,8 @@ foo.addEventListener("typeahead", (e) => {
     let eventDetails = e.detail;
 
     if (eventDetails.string.length >= 3 && eventDetails.which != 13) {
+        card.setAttribute("visible", "false")
+
         fetch(`/api/search/${eventDetails.string}`)
             .then(response => response.json())
             .then(result => foo.showTypeAhead(result))
