@@ -47,6 +47,13 @@ foo.addEventListener("typeahead", (e) => {
 
         fetch(`/api/search/${eventDetails.string}`)
             .then(response => response.json())
-            .then(result => foo.showTypeAhead(result))
+            .then(result => {
+                if (result.length === 0)
+                    ctx.publish("__notify__", {
+                        text: `Search for ${eventDetails.string} returns 0 results`
+                    })
+                else
+                    foo.showTypeAhead(result)
+            })
     }
 })
