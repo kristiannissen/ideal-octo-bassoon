@@ -12,6 +12,22 @@ template.innerHTML = `
         .is-hidden {
             display: none !important;
         }
+        #snackbar {
+            background-color: rgb(50, 50, 50);
+            display: flex;
+            padding: 6px 16px;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12);
+            border-radius: 4px;
+            position: absolute;
+            bottom: 5px;
+            min-width: 75vw;
+            left: 5px;
+        }
+        .message {
+            color: white;
+        }
     </style>
     <style>
         @import url("/css/base.css");
@@ -41,10 +57,12 @@ class Snackbar extends HTMLElement {
 
     attributeChangedCallback(name, oldVal, newVal) {
         this.toggleVisibility();
+        console.log(name, oldVal, newVal)
     }
 
     updateState(data) {
         Object.assign(this.state, data);
+        this.render();
     }
 
     get visible() {

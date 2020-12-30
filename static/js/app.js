@@ -10,6 +10,17 @@ import Context from "./modules/context.js";
 let ctx = new Context();
 
 let snackbar = document.querySelector("x-snackbar")
+ctx.subscribe({
+    event: "__notify__",
+    action: (payload) => {
+        snackbar.updateState(payload);
+        snackbar.setAttribute("visible", "true");
+        setTimeout(() => {
+            console.log("hiding snackbar")
+            snackbar.setAttribute("visible", "false")
+        }, 3000);
+    }
+})
 
 let card = document.querySelector("x-card")
 ctx.subscribe({
