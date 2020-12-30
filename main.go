@@ -30,6 +30,7 @@ func main() {
     route.HandleFunc("/api/hop/{hopname}", h.HopHandler)
     route.HandleFunc("/api/hops", h.HopListHandler)
     route.HandleFunc("/api/search/{name}", h.SearchHandler)
+    route.HandleFunc("/api/dashboard", h.DashboardHandler)
 
 	log.Fatal(http.ListenAndServe(":"+port, route))
 }

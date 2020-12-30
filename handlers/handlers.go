@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"net/url"
 	str "strings"
+    "os"
 )
 
 type Hop struct {
@@ -117,4 +118,42 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	// Encode data
 	jsonOut, _ := json.Marshal(hoplist)
 	fmt.Fprint(w, string(jsonOut))
+}
+
+// Interface for mixed entries
+type Data interface{}
+
+func DashboardHandler(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Content-Type", "application/json; charset: utf-8")
+
+    data := make(map[string]Data)
+    data["NumberOfHops"] = len(Hops)
+
+    fi, err := os.Stat("./static/hopslist.json")
+    if err != nil {
+        log.Println("Could not open file")
+    }
+    data["FileModTime"] = fi.ModTime()
+
+    hopsData := make(map[string]Data)
+
+    for _, v := range Hops {
+        country := str.Trim(v.Country, " ")
+
+        if country == "" {
+            country = "Unknown"
+        }
+        log.Println("Country", country, v.Name)
+
+        if _, found := hopsData[country]; found {
+            hopsData[country] = hopsData[country].(int) + 1
+        } else {
+            hopsData[country] = 1
+        }
+    }
+
+    data["HopsData"] = hopsData
+
+    jsonOut, _ := json.Marshal(data)
+    fmt.Fprint(w, string(jsonOut))
 }
