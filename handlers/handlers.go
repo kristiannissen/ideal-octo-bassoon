@@ -8,8 +8,8 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 	str "strings"
-    "os"
 )
 
 type Hop struct {
@@ -79,14 +79,14 @@ func HopHandler(w http.ResponseWriter, r *http.Request) {
 	hop := Hop{}
 
 	if pos == -1 {
-        // Hop was not found
-        http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		// Hop was not found
+		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
 	} else {
 		hop = Hops[pos]
-        // Encode single hop
-        jsonOut, _ := json.Marshal(hop)
-        // Print out the string
-        fmt.Fprint(w, string(jsonOut))
+		// Encode single hop
+		jsonOut, _ := json.Marshal(hop)
+		// Print out the string
+		fmt.Fprint(w, string(jsonOut))
 	}
 }
 
@@ -124,36 +124,36 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 type Data interface{}
 
 func DashboardHandler(w http.ResponseWriter, r *http.Request) {
-    w.Header().Set("Content-Type", "application/json; charset: utf-8")
+	w.Header().Set("Content-Type", "application/json; charset: utf-8")
 
-    data := make(map[string]Data)
-    data["NumberOfHops"] = len(Hops)
+	data := make(map[string]Data)
+	data["NumberOfHops"] = len(Hops)
 
-    fi, err := os.Stat("./static/hopslist.json")
-    if err != nil {
-        log.Println("Could not open file")
-    }
-    data["FileModTime"] = fi.ModTime()
+	fi, err := os.Stat("./static/hopslist.json")
+	if err != nil {
+		log.Println("Could not open file")
+	}
+	data["FileModTime"] = fi.ModTime()
 
-    hopsData := make(map[string]Data)
+	hopsData := make(map[string]Data)
 
-    for _, v := range Hops {
-        country := str.Trim(v.Country, " ")
+	for _, v := range Hops {
+		country := str.Trim(v.Country, " ")
 
-        if country == "" {
-            country = "Unknown"
-        }
-        log.Println("Country", country, v.Name)
+		if country == "" {
+			country = "Unknown"
+		}
+		log.Println("Country", country, v.Name)
 
-        if _, found := hopsData[country]; found {
-            hopsData[country] = hopsData[country].(int) + 1
-        } else {
-            hopsData[country] = 1
-        }
-    }
+		if _, found := hopsData[country]; found {
+			hopsData[country] = hopsData[country].(int) + 1
+		} else {
+			hopsData[country] = 1
+		}
+	}
 
-    data["HopsData"] = hopsData
+	data["HopsData"] = hopsData
 
-    jsonOut, _ := json.Marshal(data)
-    fmt.Fprint(w, string(jsonOut))
+	jsonOut, _ := json.Marshal(data)
+	fmt.Fprint(w, string(jsonOut))
 }

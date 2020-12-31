@@ -50,7 +50,7 @@ func (route *Route) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if str.Index(r.URL.Path, ".") > 0 {
 			fs := http.FileServer(http.Dir("./static"))
 			fs.ServeHTTP(w, r)
-            return
+			return
 		}
 		// Does p contain regexp
 		reg := regexp.MustCompile(`\{([a-z0-9]+)\}`)

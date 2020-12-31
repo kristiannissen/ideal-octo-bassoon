@@ -57,7 +57,6 @@ class Snackbar extends HTMLElement {
 
     attributeChangedCallback(name, oldVal, newVal) {
         this.toggleVisibility();
-        console.log(name, oldVal, newVal)
     }
 
     updateState(data) {

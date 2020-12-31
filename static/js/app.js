@@ -9,6 +9,8 @@ import Context from "./modules/context.js";
 
 let ctx = new Context();
 
+let dashboard = document.querySelector("#dashboard")
+
 let snackbar = document.querySelector("x-snackbar")
 ctx.subscribe({
     event: "__notify__",
@@ -16,7 +18,6 @@ ctx.subscribe({
         snackbar.updateState(payload);
         snackbar.setAttribute("visible", "true");
         setTimeout(() => {
-            console.log("hiding snackbar")
             snackbar.setAttribute("visible", "false")
         }, 3000);
     }
@@ -40,7 +41,8 @@ foo.addEventListener("search", (e) => {
 })
 
 foo.addEventListener("typeahead", (e) => {
-    let eventDetails = e.detail;
+    let eventDetails = e.detail,
+        currentKeyword = "";
 
     if (eventDetails.string.length >= 3 && eventDetails.which != 13) {
         card.setAttribute("visible", "false")
