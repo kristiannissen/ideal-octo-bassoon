@@ -143,7 +143,6 @@ func DashboardHandler(w http.ResponseWriter, r *http.Request) {
 		if country == "" {
 			country = "Unknown"
 		}
-		log.Println("Country", country, v.Name)
 
 		if _, found := hopsData[country]; found {
 			hopsData[country] = hopsData[country].(int) + 1
