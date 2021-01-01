@@ -23,6 +23,8 @@ func main() {
 	}
 
 	route := r.NewRoute()
+    // For testing purposes
+    route.HandleFunc("/hello/{name}", h.Hello)
 	// Frontend handlers
     route.HandleFunc("/", h.SplashHandler)
 	route.HandleFunc("/pwa", h.PWAHandler)

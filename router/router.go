@@ -8,26 +8,6 @@ import (
 	str "strings"
 )
 
-type Param struct {
-	Key string
-	Val string
-}
-
-var Params []Param = []Param{}
-
-func AddParam(key, val string) []Param {
-	return append(Params, Param{Key: key, Val: val})
-}
-
-func GetParam(key string) string {
-	for _, p := range Params {
-		if p.Key == key {
-			return p.Val
-		}
-	}
-	return ""
-}
-
 type Handle func(http.ResponseWriter, *http.Request)
 
 type Route struct {
@@ -76,6 +56,7 @@ func (route *Route) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			for i, name := range reg.SubexpNames() {
 				if i > 0 {
 					Params = AddParam(name, match[i])
+					// log.Printf("key %s val %s", name, match[i])
 				}
 			}
 			handler(w, r)
