@@ -29,7 +29,7 @@ func main() {
     route.HandleFunc("/", h.SplashHandler)
 	route.HandleFunc("/pwa", h.PWAHandler)
     // API handlers
-    route.HandleFunc("/api/hop/{hopname}", h.HopHandler)
+    route.HandleFunc("/api/hop/{name}", h.HopHandler)
     route.HandleFunc("/api/hops", h.HopListHandler)
     route.HandleFunc("/api/search/{name}", h.SearchHandler)
     route.HandleFunc("/api/dashboard", h.DashboardHandler)

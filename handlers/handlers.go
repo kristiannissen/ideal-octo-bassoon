@@ -62,8 +62,7 @@ func PWAHandler(w http.ResponseWriter, r *http.Request) {
 func HopHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset: utf-8")
 	// Find hop name
-	// TODO: Should be done using context
-	hopName, err := url.QueryUnescape(r.URL.Path[str.LastIndex(r.URL.Path, "/")+1:])
+	hopName, err := url.QueryUnescape(r.Context().Value("name").(string))
 	if err != nil {
 		log.Println("Error decoding", err)
 	}
@@ -103,7 +102,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset: utf-8")
 	hoplist := make([]Hop, 0)
 	// Take hop name from URL
-	hopName, err := url.QueryUnescape(r.URL.Path[str.LastIndex(r.URL.Path, "/")+1:])
+	hopName, err := url.QueryUnescape(r.Context().Value("name").(string))
 
 	if err != nil {
 		log.Println("Error decoding", err)
