@@ -1,4 +1,5 @@
 {
+    "scope": "/pwa",
     "name": "Hopstr",
     "short_name": "Hopstr",
     "start_url": "/pwa",
