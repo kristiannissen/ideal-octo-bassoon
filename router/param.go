@@ -1,6 +1,6 @@
 package router
 
-import "log"
+// import "log"
 
 type Param struct {
 	Key string

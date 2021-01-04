@@ -37,6 +37,8 @@ func init() {
 
 func Hello(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset: utf-8")
+	name := r.Context().Value("name")
+	log.Println(name)
 
 	html := t.Parse("./static/templates/index.html", nil)
 

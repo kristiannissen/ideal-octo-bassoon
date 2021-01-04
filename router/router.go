@@ -1,6 +1,7 @@
 package router
 
 import (
+	"context"
 	"log"
 	"net/http"
 	"net/url"
@@ -53,13 +54,16 @@ func (route *Route) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		match := reg.FindStringSubmatch(url)
 		if len(match) > 0 {
 			// log.Printf("Match URL %s pattern %s", r.URL.Path, reg)
+			ctx := r.Context()
+
 			for i, name := range reg.SubexpNames() {
 				if i > 0 {
-					Params = AddParam(name, match[i])
+					// Params = AddParam(name, match[i])
 					// log.Printf("key %s val %s", name, match[i])
+					ctx = context.WithValue(r.Context(), name, match[i])
 				}
 			}
-			handler(w, r)
+			handler(w, r.WithContext(ctx))
 			return
 		}
 	}
