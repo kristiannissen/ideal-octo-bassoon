@@ -58,7 +58,7 @@ body {
 }
 .nav {
     display: flex;
-    min-height: 5rem;
+    min-height: 10rem;
     align-items: stretch;
 }
 
