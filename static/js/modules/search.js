@@ -67,6 +67,10 @@ class Search extends HTMLElement {
         if (e.target.classList.contains("typeahead-item")) {
             this.root.querySelector("#query").value = e.target.innerHTML.trim()
             this.showTypeAhead([])
+            let foo = this.root.querySelector("#search-form")
+            foo.dispatchEvent(new SubmitEvent("submit", {
+                submitter: null
+            }))
         }
     }
 
