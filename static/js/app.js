@@ -10,6 +10,15 @@ import Context from "./modules/context.js";
 let ctx = new Context();
 
 let dashboard = document.querySelector("#dashboard")
+// TODO come up with something better
+fetch(`/api/dashboard`)
+    .then(resp => resp.json())
+    .then(data => {
+        let date = new Date(Date.parse(data.FileModTime))
+        let table = dashboard.querySelector("#table")
+        table.innerHTML = `<h4>Number of Hops ${data.NumberOfHops}</h4>
+            <p>The list was last updated ${date.toLocaleString()}</p>`
+    })
 
 let snackbar = document.querySelector("x-snackbar")
 ctx.subscribe({
