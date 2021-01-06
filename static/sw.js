@@ -1,4 +1,4 @@
-const CACHE = "v0.0.1";
+const CACHE = "v0.0.2";
 
 self.addEventListener("install", (e) => {
     e.waitUntil(
@@ -31,6 +31,16 @@ self.addEventListener("fetch", (e) => {
                     return response;
                 })
             })
+        })
+    )
+})
+
+
+self.addEventListener("activate", (e) => {
+    e.waitUntil(
+        caches.keys().then(keys => {
+            keys.filter(key => CACHE !== key)
+                .map(key => caches.delete(key))
         })
     )
 })
