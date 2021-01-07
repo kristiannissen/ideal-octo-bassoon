@@ -93,6 +93,8 @@ class Card extends HTMLElement {
                     Alternatives: ${this.state.Substitutes}<br>
                     Beer Styles: ${this.state.Styleguide}<br>
                     Characteristics: ${this.state.Characteristics}<br>
+                    Alpha Acid: ${this.state.Alphaacidcomposition}<br>
+                    Beta Acid: ${this.state.Betaacidcomposition}<br>
                     Country: ${this.state.Country}<br>
                 </p>
                 <footer class="is-center">
