@@ -53,7 +53,8 @@ foo.addEventListener("typeahead", (e) => {
     let eventDetails = e.detail,
         currentKeyword = "";
 
-    if (eventDetails.string.length >= 3 && eventDetails.which != 13) {
+    if (eventDetails.string.length >= 3 &&
+        [13,8].includes(eventDetails.which) === false) {
         card.setAttribute("visible", "false")
 
         fetch(`/api/search/${eventDetails.string}`)

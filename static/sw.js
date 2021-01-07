@@ -1,4 +1,4 @@
-const CACHE = "v0.0.2";
+const CACHE = "v0.0.1";
 
 self.addEventListener("install", (e) => {
     e.waitUntil(
@@ -23,16 +23,6 @@ self.addEventListener("install", (e) => {
 });
 
 self.addEventListener("fetch", (e) => {
-    e.respondWith(
-        caches.open(CACHE).then((cache) => {
-            return cache.match(e.request).then((response) => {
-                return response || fetch(e.request).then((response) => {
-                    cache.put(e.request, response.clone())
-                    return response;
-                })
-            })
-        })
-    )
 })
 
 
