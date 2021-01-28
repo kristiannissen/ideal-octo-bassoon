@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <title>App Shell</title>
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="/pwa/manifest.json">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="/css/pwa_shell.css">
-  <link rel="preload" as="style" type="text/css" href="/css/pwa_app.css"
+  <link rel="stylesheet" type="text/css" href="/pwa/css/pwa_shell.css">
+  <link rel="preload" as="style" type="text/css" href="/pwa/css/pwa_app.css"
   onload="this.onload=null;this.rel='stylesheet'">
 </head>
 
@@ -16,7 +16,7 @@
     <div class="container">
         <nav class="nav">
             <div class="nav-center">
-                <a class="brand" href="/pwa"><img src="/imgs/hopstr.png"></a>
+                <a class="brand" href="/pwa"><img src="/pwa/imgs/hopstr.png"></a>
             </div>
         </nav>
 
@@ -34,10 +34,10 @@
         <x-snackbar visible="false"></x-snackbar>
     </div>
 
-  <script src="/js/app.js" type="module"></script>
+  <script src="/pwa/js/app.js" type="module"></script>
   <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js').then(function(registration) {
+    navigator.serviceWorker.register('/pwa/sw.js').then(function(registration) {
       // Registration was successful
       console.log('ServiceWorker registration successful with scope: ', registration.scope);
     }).catch(function(err) {
