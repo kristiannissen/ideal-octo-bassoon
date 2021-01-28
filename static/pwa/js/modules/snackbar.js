@@ -36,52 +36,53 @@ template.innerHTML = `
 `;
 
 class Snackbar extends HTMLElement {
-    constructor() {
-        super();
-        this._shadowRoot = this.attachShadow({mode: "open"});
-        this._shadowRoot.appendChild(template.content.cloneNode(true));
-        this.root = this._shadowRoot.querySelector("#snackbar");
-        this.state = {
-            text: "",
-            type: "info"
-        };
-    }
+  constructor() {
+    super();
+    this._shadowRoot = this.attachShadow({ mode: "open" });
+    this._shadowRoot.appendChild(template.content.cloneNode(true));
+    this.root = this._shadowRoot.querySelector("#snackbar");
+    this.state = {
+      text: "",
+      type: "info",
+    };
+  }
 
-    connectedCallback() {
-        this.render();
-    }
+  connectedCallback() {
+    this.render();
+  }
 
-    static get observedAttributes() {
-        return ["visible"];
-    }
+  static get observedAttributes() {
+    return ["visible"];
+  }
 
-    attributeChangedCallback(name, oldVal, newVal) {
-        this.toggleVisibility();
-    }
+  attributeChangedCallback(name, oldVal, newVal) {
+    this.toggleVisibility();
+  }
 
-    updateState(data) {
-        Object.assign(this.state, data);
-        this.render();
-    }
+  updateState(data) {
+    Object.assign(this.state, data);
+    this.render();
+  }
 
-    get visible() {
-        return this.getAttribute("visible");
-    }
+  get visible() {
+    return this.getAttribute("visible");
+  }
 
-    set visible(val) {
-        if (val) this.setAttribute("visible", val)
-        else this.removeAttribute("visible")
-    }
+  set visible(val) {
+    if (val) this.setAttribute("visible", val);
+    else this.removeAttribute("visible");
+  }
 
-    toggleVisibility() {
-        if (this.getAttribute("visible") === "false") this.root.classList.add("is-hidden")
-        else this.root.classList.remove("is-hidden")
-    }
+  toggleVisibility() {
+    if (this.getAttribute("visible") === "false")
+      this.root.classList.add("is-hidden");
+    else this.root.classList.remove("is-hidden");
+  }
 
-    render() {
-        let html = `<div class="message">${this.state.text}</div>`
-        this.root.innerHTML = html;
-    }
+  render() {
+    let html = `<div class="message">${this.state.text}</div>`;
+    this.root.innerHTML = html;
+  }
 }
 
 export default customElements.define("x-snackbar", Snackbar);

@@ -1,8 +1,8 @@
-const CACHE = "v0.0.1";
+const CACHE_KEY = "v0.0.1";
 
 self.addEventListener("install", (e) => {
     e.waitUntil(
-        caches.open(CACHE).then((cache) => {
+        caches.open(CACHE_KEY).then((cache) => {
             return cache.addAll([
                 "/pwa/imgs/hopstr.png",
                 "/pwa/css/pwa_app.css",
@@ -29,7 +29,7 @@ self.addEventListener("fetch", (e) => {
 self.addEventListener("activate", (e) => {
     e.waitUntil(
         caches.keys().then(keys => {
-            keys.filter(key => CACHE !== key)
+            keys.filter(key => CACHE_KEY !== key)
                 .map(key => caches.delete(key))
         })
     )

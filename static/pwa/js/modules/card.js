@@ -22,69 +22,70 @@ template.innerHTML = `
 `;
 
 class Card extends HTMLElement {
-    constructor() {
-        super();
-        this._shadowRoot = this.attachShadow({mode: "open"});
-        this._shadowRoot.appendChild(template.content.cloneNode(true));
-        this.state = {
-            Name: "",
-            Styleguide: "",
-            Substitutes: "",
-            Purpose: "",
-            Country: "",
-            Characteristics: "",
-            Alphaacidcomposition: "",
-            Betaacidcomposition: "",
-        };
-        this.card = this._shadowRoot.querySelector("#card")
-    }
+  constructor() {
+    super();
+    this._shadowRoot = this.attachShadow({ mode: "open" });
+    this._shadowRoot.appendChild(template.content.cloneNode(true));
+    this.state = {
+      Name: "",
+      Styleguide: "",
+      Substitutes: "",
+      Purpose: "",
+      Country: "",
+      Characteristics: "",
+      Alphaacidcomposition: "",
+      Betaacidcomposition: "",
+    };
+    this.card = this._shadowRoot.querySelector("#card");
+  }
 
-    connectedCallback() {
-        this.toggleVisibility()
-        this.render();
-        this.attachEventListener();
-    }
+  connectedCallback() {
+    this.toggleVisibility();
+    this.render();
+    this.attachEventListener();
+  }
 
-    static get observedAttributes() {
-        return ["visible"];
-    }
+  static get observedAttributes() {
+    return ["visible"];
+  }
 
-    toggleVisibility() {
-        if (this.getAttribute("visible") === "false")
-            this.card.classList.add("is-hidden")
-        else
-            this.card.classList.remove("is-hidden")
-    }
+  toggleVisibility() {
+    if (this.getAttribute("visible") === "false")
+      this.card.classList.add("is-hidden");
+    else this.card.classList.remove("is-hidden");
+  }
 
-    attributeChangedCallback(name, oldVal, newVal) {
-       this.toggleVisibility() 
-    }
+  attributeChangedCallback(name, oldVal, newVal) {
+    this.toggleVisibility();
+  }
 
-    get visible() {
-        return this.getAttribute("visible")
-    }
+  get visible() {
+    return this.getAttribute("visible");
+  }
 
-    set visible(val) {
-        if (val) this.setAttribute("visible", val)
-        else this.removeAttribute("visible")
-    }
+  set visible(val) {
+    if (val) this.setAttribute("visible", val);
+    else this.removeAttribute("visible");
+  }
 
-    updateState(data) {
-        Object.assign(this.state, data)
-        this.render()
-    }
+  updateState(data) {
+    Object.assign(this.state, data);
+    this.render();
+  }
 
-    attachEventListener() {
-        this.addEventListener("click", (e) => {
-            e.preventDefault();
-            let target = e.target;
-        });
-    }
+  attachEventListener() {
+    this.addEventListener("click", (e) => {
+      e.preventDefault();
+      let target = e.target;
+    });
+  }
 
-    render() {
-        let substitutes = this.state.Substitutes.split(",").map(str => str.trim())
+  render() {
+    let substitutes = this.state.Substitutes.split(",").map((str) =>
+      str.trim()
+    );
 
-        const html = `<div class="card">
+    const html = `<div class="card">
                 <header>
                     <h3>${this.state.Name}</h3>
                 </header>
@@ -99,9 +100,9 @@ class Card extends HTMLElement {
                 </p>
                 <footer class="is-center">
                 </footer>
-            </div>`
-        this.card.innerHTML = html
-    }
+            </div>`;
+    this.card.innerHTML = html;
+  }
 }
 
 export default customElements.define("x-card", Card);

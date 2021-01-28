@@ -7475,5 +7475,33 @@
       "growthrate" : "",
       "country" : "US",
       "purpose" : "Aroma"
+   },
+    {
+      "resistantto" : "",
+      "myrceneoilcomposition" : "",
+      "betaacidcomposition" : "8.0 - 10.0",
+      "conesize" : "",
+      "farneseneoil" : "",
+      "humuleneoilcomposition" : "",
+      "totaloilcomposition" : "",
+      "url" : "",
+      "cohumulonecomposition" : "",
+      "name" : "BRU-1",
+      "susceptibleto" : "",
+      "storability" : "",
+      "easeofharvest" : "",
+      "substitutes" : "",
+      "yieldamount" : "",
+      "caryophylleneoil" : "",
+      "styleguide" : "Wheat Ale, Golden Ale, American style lagers, Pale Ales, India Pale Lager (IPL), India Pale Ale (IPA), Session IPA, New England IPA, Hazy IPA, Imperial IPA",
+      "desc" : "BRU-1 is notable for its distinct sweet fruit aroma that is often described as pineapple. When used as a whirlpool or dry hop addition, BRU-1 delivers the aroma of freshly cut pineapple and green fruits. BRU-1 is synergistic with other hops creating a depth of fruit flavor. BRU-1 has also been shown to improve haze stability in certain beer styles.",
+      "seasonalmaturity" : "",
+      "conedensity" : "",
+      "characteristics" : "Pineapple, Pear, Apple, Fresh Cut Grass",
+      "alphaacidcomposition" : "13.0 - 15.0",
+      "alsoknownas" : "",
+      "growthrate" : "",
+      "country" : "US",
+      "purpose" : "Aroma"
    }
 ]
