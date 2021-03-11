@@ -41,7 +41,11 @@ class Search extends HTMLElement {
       this.setAttribute("keyword", e.target["query"].value.trim());
       this.dispatchEvent(
         new CustomEvent("search", {
-          detail: e.target["query"].value.trim(),
+          detail: {
+            value: e.target["query"].value.trim(),
+            key: e.key,
+            which: e.which,
+          },
         })
       );
     });
@@ -52,7 +56,7 @@ class Search extends HTMLElement {
       this.dispatchEvent(
         new CustomEvent("typeahead", {
           detail: {
-            string: e.target.value.trim(),
+            value: e.target.value.trim(),
             key: e.key,
             which: e.which,
           },
@@ -82,13 +86,7 @@ class Search extends HTMLElement {
     }
   }
 
-  attributeChangedCallback(name, oldVal, newVal) {
-    this.dispatchEvent(
-      new CustomEvent("search", {
-        detail: this.getAttribute("keyword"),
-      })
-    );
-  }
+  attributeChangedCallback(name, oldVal, newVal) {}
 
   get keyword() {
     return this.getAttribute("keyword");

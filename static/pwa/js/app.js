@@ -44,7 +44,7 @@ ctx.subscribe({
 let foo = document.querySelector("x-search")
 foo.addEventListener("search", (e) => {
     // Pass keyword to API
-    fetch(`/api/hop/${e.detail}`)
+    fetch(`/api/hop/${e.detail.value}`)
         .then(response => response.json())
         .then(data => ctx.publish("__search__", data))
 })
@@ -52,17 +52,16 @@ foo.addEventListener("search", (e) => {
 foo.addEventListener("typeahead", (e) => {
     let eventDetails = e.detail,
         currentKeyword = "";
-
-    if (eventDetails.string.length >= 3 &&
+    if (eventDetails.value.length >= 3 &&
         [13,8].includes(eventDetails.which) === false) {
         card.setAttribute("visible", "false")
 
-        fetch(`/api/search/${eventDetails.string}`)
+        fetch(`/api/search/${eventDetails.value}`)
             .then(response => response.json())
             .then(result => {
                 if (result.length === 0)
                     ctx.publish("__notify__", {
-                        text: `Search for ${eventDetails.string} returns 0 results`
+                        text: `Search for ${eventDetails.value} returns 0 results`
                     })
                 else
                     foo.showTypeAhead(result)

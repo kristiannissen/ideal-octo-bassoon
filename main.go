@@ -23,16 +23,16 @@ func main() {
 	}
 
 	route := r.NewRoute()
-    // For testing purposes
-    route.HandleFunc("/hello/{name}", h.Hello)
+	// For testing purposes
+	route.HandleFunc("/hello/{name}", h.Hello)
 	// Frontend handlers
-    route.HandleFunc("/", h.SplashHandler)
+	route.HandleFunc("/", h.SplashHandler)
 	route.HandleFunc("/pwa", h.PWAHandler)
-    // API handlers
-    route.HandleFunc("/api/hop/{name}", h.HopHandler)
-    route.HandleFunc("/api/hops", h.HopListHandler)
-    route.HandleFunc("/api/search/{name}", h.SearchHandler)
-    route.HandleFunc("/api/dashboard", h.DashboardHandler)
+	// API handlers
+	route.HandleFunc("/api/hop/{name}", h.HopHandler)
+	route.HandleFunc("/api/hops", h.HopListHandler)
+	route.HandleFunc("/api/search/{name}", h.SearchHandler)
+	route.HandleFunc("/api/dashboard", h.DashboardHandler)
 
 	log.Fatal(http.ListenAndServe(":"+port, route))
 }

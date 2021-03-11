@@ -110,7 +110,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	for _, v := range Hops {
 		// Compare lowercase to lowercase
 		if str.Contains(str.ToLower(str.Trim(v.Name, " ")), str.ToLower(hopName)) {
-            // Name contains hopName
+			// Name contains hopName
 			hoplist = append(hoplist, v)
 		}
 	}
