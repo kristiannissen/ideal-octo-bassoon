@@ -16,8 +16,7 @@ fetch(`/api/dashboard`)
     .then(data => {
         let date = new Date(Date.parse(data.FileModTime))
         let table = dashboard.querySelector("#table")
-        table.innerHTML = `<h4>Number of Hops ${data.NumberOfHops}</h4>
-            <p>The list was last updated ${date.toLocaleString()}</p>`
+        table.innerHTML = `<h4>Number of Hops ${data.NumberOfHops}</h4>`
     })
 
 let snackbar = document.querySelector("x-snackbar")
