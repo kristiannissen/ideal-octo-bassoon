@@ -22,10 +22,10 @@ You can also access parameters from the URL like this
 ```
 router.HandleFunc("/hello/{kitty}", func(...))
 ```
-And then access the paramter key kitty using GetParam(keyname string) like this
+And then access the paramter key kitty using r.Context().Value() like this
 ```
 router.HandleFunc("/hello/{name}", func(w http.ResponseWriter, r *http.Request) {
-  fmt.Fprintf(w, "Hello %s", GetParam("name")) 
+  fmt.Fprintf(w, "Hello %s", r.Context().Value("name")) 
 })
 ```
 
@@ -55,7 +55,7 @@ My favourite: **gofmt -w -s** does the code formatting for me.
 Run package test: **go test -v ./package/** runs all tests in the package you
 specify.
 
-### App Structure
+### App Structur
 Routes used
 
 * /api/hops - returns top N hops, with pagination
@@ -65,3 +65,8 @@ Routes used
 
 Since the app is just using a JSON file as it's datasource in this first
 version, there is no need for authentication or admin routes.
+
+### Running tests
+Running package specific tests:
+
+go test github.com/kristiannissen/ideal-octo-bassoon/router -run TestServeHTTP

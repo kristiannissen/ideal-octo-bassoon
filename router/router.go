@@ -4,7 +4,6 @@ import (
 	"context"
 	"log"
 	"net/http"
-	"net/url"
 	"regexp"
 	str "strings"
 )
@@ -40,20 +39,16 @@ func (route *Route) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		// If groups has len > 0
 		if len(groups) > 0 {
 			for _, v := range groups {
-				pattern = str.ReplaceAll(pattern, v[0], "(?P<"+v[1]+">[a-zA-Z0-9\\(\\)i\\s]+)")
+				pattern = str.ReplaceAll(pattern, v[0], "(?P<"+v[1]+">[a-zA-Z0-9\\(\\)i\\s\\S]+)")
 			}
 		}
 		// Escape / append ^ prepend $
 		pattern = "(?m)^" + str.ReplaceAll(pattern, "/", "\\/") + "$"
 		// log.Println(pattern)
 		reg = regexp.MustCompile(pattern)
-		url, err := url.QueryUnescape(r.URL.Path)
-		if err != nil {
-			log.Println("QueryUnscape error ", err)
-		}
-		match := reg.FindStringSubmatch(url)
+		match := reg.FindStringSubmatch(r.URL.Path)
 		if len(match) > 0 {
-			// log.Printf("Match URL %s pattern %s", r.URL.Path, reg)
+			log.Printf("Match URL %s pattern %s", r.URL.Path, pattern)
 			ctx := r.Context()
 
 			for i, name := range reg.SubexpNames() {
@@ -67,7 +62,8 @@ func (route *Route) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	log.Printf("URL %s not found", r.URL.Path)
+	// Log 404 error
+	log.Fatalf("URL '%s' not found", r.URL.Path)
 
 	http.NotFound(w, r)
 }
